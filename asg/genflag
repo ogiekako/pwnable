@@ -1,0 +1,6 @@
+#!/bin/sh
+
+rm flags/*
+f=$(mktemp flags/XXXXXXXXXX)
+echo "This is the flag" > $f
+echo $f
