@@ -1,0 +1,56 @@
+ascii: 0x20 - 0x7f
+
+gcc -o my_ascii_easy my_ascii_easy.c -m32 -fno-stack-protector
+
+
+0x5555e000
+
+55616740 <execv@@GLIBC_2.0>:
+55616a40 <execvp@@GLIBC_2.0>:
+55616A80 <execlp@@GLIBC_2.0>:
+
+SEGV is caused on taking __environ__ variable.
+
+b8a6a
+
+0x55616A6A : call execvpe
+0x55616BD0 : execvpe@@GLIBC_2.11
+
+execvp:
+If the specified path name doesn't contain /, the file is sought in the colon-separated list of directory
+pathnames specified in the PATH environment variable.
+
+556f6238 "x"
+556f7c4c  NULL
+
+Segfault on 32188 (55590188)
+( inside getenv )
+
+
+65e30   IO_gets
+555C3E30
+seemingly seg-faulting while accessing _IO_stdin
+
+IO_fgets
+0x555C2E4E
+64e4e:	e8 fd fe ff ff       	call   64d50 <_IO_fgets@@GLIBC_2.0+0x1b0>
+
+
+call *%gs:0x10
+indicates syscall .
+
+__read@, syscall@ look promising.
+
+syscall doesn't have ascii address and calling instructions.
+
+__read@
+115470 (55673470)calls read.
+well... it won't work. fd must be zero ...
+
+
+even exit fails with segfault. (secure_getenv fails)
+
+
+execve ?
+   b876a:	e8 71 fe ff ff       	call   b85e0 <execve@@GLIBC_2.0>
+5561676a

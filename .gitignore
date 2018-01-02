@@ -1,1 +1,4 @@
 *.pyc
+.irssi
+.pwntools-cache
+.gdb_history
