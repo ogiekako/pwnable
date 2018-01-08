@@ -1,0 +1,3 @@
+break *main + 193
+disable $bpnum
+
