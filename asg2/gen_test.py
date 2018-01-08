@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
 import gen
+import solve
 import subprocess
 
-def test(b):
+def test(flag, b):
     f = open('/tmp/a.s', 'w+')
     code = '''.intel_syntax noprefix
     .section .data
@@ -11,7 +12,8 @@ def test(b):
     .globl _start
     _start:
 '''
-    code += gen.shellcode('flag', b)
+    shellcode = gen.shellcode(flag, b)
+    code += shellcode
     f.write(code)
 
     f.close()
@@ -22,8 +24,10 @@ def test(b):
     if s != 'This is the flag!':
         print "Failed %d %s" % (b, s)
         exit(1)
+    print 'OK %d, len: %d' % (b, len(gen.asmit(shellcode, b)))
 
-test(32)
-test(64)
-print "OK"
+flag = subprocess.check_output(['./genflag']).strip()
+test(flag, 32)
+flag = subprocess.check_output(['./genflag']).strip()
+test(flag, 64)
 

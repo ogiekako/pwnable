@@ -11,7 +11,7 @@ fi
 trap "exit" INT
 for i in $(seq 1 1000); do
   echo $i 1>&2;
-  ./solve.py $arg
+  ./main.py $arg
   if [ $? -ne 0 ]; then
     break
   fi
