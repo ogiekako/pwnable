@@ -1,6 +1,0 @@
-#!/bin/sh
-
-rm flagbox/*
-f=$(mktemp flagbox/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX)
-echo "This is the flag!" > $f
-echo $f

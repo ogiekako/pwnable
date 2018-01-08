@@ -1,36 +1,38 @@
-execve("/usr/local/google/home/oka/src/github.com/ogiekako/pwnable/asg/my_asg", ["/usr/local/google/home/oka/src/g"...], [/* 86 vars */]) = 0
-brk(NULL)                               = 0x55978c3f8000
+execve("/home/oka/src/github.com/ogiekako/pwnable/asg2/my_asg", ["/home/oka/src/github.com/ogiekak"...], [/* 54 vars */]) = 0
+brk(NULL)                               = 0x629000
 access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
-mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f3b5b08c000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f282fb48000
 access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
 open("/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 5
-fstat(5, {st_mode=S_IFREG|0644, st_size=163793, ...}) = 0
-mmap(NULL, 163793, PROT_READ, MAP_PRIVATE, 5, 0) = 0x7f3b5b064000
+fstat(5, {st_mode=S_IFREG|0644, st_size=152190, ...}) = 0
+mmap(NULL, 152190, PROT_READ, MAP_PRIVATE, 5, 0) = 0x7f282fb22000
 close(5)                                = 0
 access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
 open("/lib/x86_64-linux-gnu/libseccomp.so.2", O_RDONLY|O_CLOEXEC) = 5
-read(5, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\340\30\2\0\0\0\0\0"..., 832) = 832
-fstat(5, {st_mode=S_IFREG|0644, st_size=280872, ...}) = 0
-mmap(NULL, 2375936, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 5, 0) = 0x7f3b5ac27000
-mprotect(0x7f3b5ac56000, 2093056, PROT_NONE) = 0
-mmap(0x7f3b5ae55000, 94208, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 5, 0x2e000) = 0x7f3b5ae55000
+read(5, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\340\351\1\0\0\0\0\0"..., 832) = 832
+fstat(5, {st_mode=S_IFREG|0644, st_size=252152, ...}) = 0
+mmap(NULL, 2347216, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 5, 0) = 0x7f282f6e7000
+mprotect(0x7f282f710000, 2097152, PROT_NONE) = 0
+mmap(0x7f282f910000, 86016, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 5, 0x29000) = 0x7f282f910000
 close(5)                                = 0
 access("/etc/ld.so.nohwcap", F_OK)      = -1 ENOENT (No such file or directory)
 open("/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 5
-read(5, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\320\3\2\0\0\0\0\0"..., 832) = 832
-fstat(5, {st_mode=S_IFREG|0755, st_size=1689360, ...}) = 0
-mmap(NULL, 3795360, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 5, 0) = 0x7f3b5a888000
-mprotect(0x7f3b5aa1d000, 2097152, PROT_NONE) = 0
-mmap(0x7f3b5ac1d000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 5, 0x195000) = 0x7f3b5ac1d000
-mmap(0x7f3b5ac23000, 14752, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f3b5ac23000
+read(5, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\t\2\0\0\0\0\0"..., 832) = 832
+fstat(5, {st_mode=S_IFREG|0755, st_size=1868984, ...}) = 0
+mmap(NULL, 3971488, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 5, 0) = 0x7f282f31d000
+mprotect(0x7f282f4dd000, 2097152, PROT_NONE) = 0
+mmap(0x7f282f6dd000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 5, 0x1c0000) = 0x7f282f6dd000
+mmap(0x7f282f6e3000, 14752, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f282f6e3000
 close(5)                                = 0
-mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f3b5b062000
-arch_prctl(ARCH_SET_FS, 0x7f3b5b062700) = 0
-mprotect(0x7f3b5ac1d000, 16384, PROT_READ) = 0
-mprotect(0x7f3b5ae55000, 90112, PROT_READ) = 0
-mprotect(0x55978a77b000, 4096, PROT_READ) = 0
-mprotect(0x7f3b5b08f000, 4096, PROT_READ) = 0
-munmap(0x7f3b5b064000, 163793)          = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f282fb21000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f282fb20000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f282fb1f000
+arch_prctl(ARCH_SET_FS, 0x7f282fb20700) = 0
+mprotect(0x7f282f6dd000, 16384, PROT_READ) = 0
+mprotect(0x7f282f910000, 81920, PROT_READ) = 0
+mprotect(0x601000, 4096, PROT_READ)     = 0
+mprotect(0x7f282fb4a000, 4096, PROT_READ) = 0
+munmap(0x7f282fb22000, 152190)          = 0
 write(1, "Welcome to Automatic Shellcode G"..., 57) = 57
 write(1, "\n", 1)                       = 1
 write(1, "your mission is making an arbitr"..., 58) = 58
@@ -38,34 +40,34 @@ write(1, "\n", 1)                       = 1
 write(1, "but, can you make this with rand"..., 56) = 56
 write(1, "\n", 1)                       = 1
 fstat(0, {st_mode=S_IFSOCK|0777, st_size=0, ...}) = 0
-brk(NULL)                               = 0x55978c3f8000
-brk(0x55978c41a000)                     = 0x55978c41a000
+brk(NULL)                               = 0x629000
+brk(0x64b000)                           = 0x64b000
 read(0, "\n", 4096)                     = 1
 open("/dev/urandom", O_RDONLY)          = 5
-read(5, "\242\7\354\304", 4)            = 4
+read(5, "\367\253\2667", 4)             = 4
 write(1, "these are filtered set of bytes:", 32) = 32
 write(1, "\n", 1)                       = 1
-write(1, "\332q\317!\341\362C\372/\233\33\274gO\22\\\202\236w\243}\27\376\251\321#fdm\352k\21"..., 128) = 128
+write(1, "6\345\33\10q`\230\322\25\241\254\frF\355\207#\37\223\365\34\v~\356\364\273\1&\260\323\272\233"..., 128) = 128
 pipe2([6, 7], O_CLOEXEC)                = 0
-clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f3b5b0629d0) = 21815
+clone(child_stack=0, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7f282fb209d0) = 20303
 close(7)                                = 0
 fcntl(6, F_SETFD, 0)                    = 0
 fstat(6, {st_mode=S_IFIFO|0600, st_size=0, ...}) = 0
-read(6, "flags/pfCbcgPP5i\n", 4096)     = 17
-write(1, "flag is inside this file: [flags"..., 45) = 45
-mmap(NULL, 4096, PROT_READ|PROT_WRITE|PROT_EXEC, MAP_PRIVATE|MAP_ANONYMOUS, 0, 0) = 0x7f3b5b08b000
+read(6, "flagbox/0KgXUUMtNt90SHez3lbvxNuE"..., 4096) = 72
+write(1, "flag is inside this file: [flagb"..., 100) = 100
+mmap(NULL, 4096, PROT_READ|PROT_WRITE|PROT_EXEC, MAP_PRIVATE|MAP_ANONYMOUS, 0, 0) = 0x7f282fb47000
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=20303, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
 write(1, "give me your shellcode: ", 24) = 24
---- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=21815, si_uid=244555, si_status=0, si_utime=0, si_stime=0} ---
-read(0, "H\2155H\0\0\0\201\302HH\0\0\17\5", 1000) = 15
-nanosleep({tv_sec=1, tv_nsec=0x7f0x7ffeda870e90) = 0
+read(0, "H\215%\0\5\0\0H\276\375\377\377\377\377\377\377\377H\277\301\377\377\377\316\0\360\372H1\376VH"..., 1000) = 1000
+nanosleep({1, 0}, 0x7ffef0ed1160)       = 0
+alarm(1)                                = 0
+shutdown(0, SHUT_RD)                    = 0
 write(1, "buena suerte!", 13)           = 13
 write(1, "\n", 1)                       = 1
 prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0)  = 0
-seccomp(SECCOMP_SET_MODE_STRICT, 1, NULL) = -1 EINVAL (Invalid argument)
-seccomp(SECCOMP_SET_MODE_FILTER, 0, {len=11, filter=0x55978c3fb560}) = 0
-read(0, "H\215\r\0\3\0\0H\307\300\2\0\0\0H\211\317H\307\306\0\0\0\0H\307\302\0\0\0\0H"..., 18504) = 264
-open("flags/pfCbcgPP5i", O_RDONLY)      = 7
-read(7, "This is the flag\n", 1000)     = 17
-write(1, "This is the flag\n\220\220\220\220\220\220\220\220\220\220\220\220\220\220\220"..., 1000) = 1000
---- SIGSEGV {si_signo=SIGSEGV, si_code=SI_KERNEL, si_addr=NULL} ---
-+++ killed by SIGSEGV +++
+prctl(PR_SET_SECCOMP, SECCOMP_MODE_FILTER, {len = 11, filter = 0x62c050}) = 0
+open("flagbox/0KgXUUMtNt90SHez3lbvxNuET3fAiiVY2Yfue3C3ug9oKWoh0ChD61conShh24c", O_RDONLY) = 7
+read(7, "This is the flag!\n", 100)     = 18
+write(1, "This is the flag!\n\0\0H\215%\0\5\0\0H\215%\0\5"..., 100) = 100
+exit(0)                                 = ?
++++ exited with 0 +++
