@@ -1,0 +1,3 @@
+From 80494a1, there's the string
+Virtory! flag is {rekcusamai}.
+
